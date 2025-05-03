@@ -70,8 +70,8 @@ For CI/CD integration, pipeline variables need to be passed in order for these t
 ENV=$ENV HEADLESS=$HEADLESS npm run test:regression:ci
 ```
 Pipeline variables:
-- ENV: string - test environment that is either 'dev' | 'staging' | 'prod'
-- HEADLESS: boolean - to have the ability to run regression in both headless and headed mode
+- **ENV**: string - test environment that is either 'dev' | 'staging' | 'prod'
+- **HEADLESS**: boolean - to have the ability to run regression in both headless and headed mode
 
 ## Debugging
 ### Debugging tests on local
