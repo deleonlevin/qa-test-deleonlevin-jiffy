@@ -2,8 +2,6 @@ import { defineConfig } from '@playwright/test';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const env = process.env.ENV || 'PROD';
-
 export default defineConfig({
   testDir: './tests',
   timeout: 30000,
@@ -15,9 +13,7 @@ export default defineConfig({
     browserName: 'chromium',
     headless: true,
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     baseURL: process.env.BASE_URL || 'https://example.com',
-
   },
 });

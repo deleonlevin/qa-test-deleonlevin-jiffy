@@ -6,6 +6,8 @@
         "test:qa": "ENV=STAGING npx playwright test",
         "test:prod": "ENV=PROD npx playwright test",
         "test:ci": "ENV=$ENV npx playwright test",
+        "test:local:headless": "ENV=local npx playwright test",
+        "test:local:headed": "ENV=local npx playwright test --headed",
         "test:headed": "npx playwright test --headed",
         "codegen": "npx playwright codegen"
     },
