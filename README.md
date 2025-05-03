@@ -16,11 +16,13 @@ Take home task for Senior AQA Engineer role with Jiffy
 
 ### Assertions
 
-## Testing
-
+## Running Tests
 ### Running tests on local
 
 ### Running tests on CI/CD
+
+## Debugging
+### Debugging tests on local
 
 ## Others
 ### Assumptions
