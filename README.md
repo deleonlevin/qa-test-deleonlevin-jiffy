@@ -1,7 +1,9 @@
 # qa-test-deleonlevin-jiffy
+
 Take home task for Senior AQA Engineer role with Jiffy
 
 ## Framework
+
 ### Folder Structure
 
 - `pages/` – Page Object Models
@@ -17,14 +19,17 @@ Take home task for Senior AQA Engineer role with Jiffy
 ### Assertions
 
 ## Running Tests
+
 ### Running tests on local
 
 ### Running tests on CI/CD
 
 ## Debugging
+
 ### Debugging tests on local
 
 ## Others
+
 ### Assumptions
 
 ### Other Resources
