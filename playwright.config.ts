@@ -13,7 +13,12 @@ export default defineConfig({
     headless: process.env.HEADLESS !== "false",
     screenshot: "on",
     trace: "retain-on-failure",
+    actionTimeout: 10000,
+    navigationTimeout: 15000,
   },
   testDir: "./tests",
   reporter: [["html"], ["list"]],
+  expect: {
+    timeout: 5000,
+  },
 });

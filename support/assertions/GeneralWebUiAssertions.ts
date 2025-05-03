@@ -1,6 +1,6 @@
 import { expect, Page } from "playwright/test";
 
-/** CODEOWNER NOTE:
+/**CODEOWNER NOTES
  * In the principle of maintaining 'DRY' principle in coding, I would like to maintain all reusable assertions
  *    for web UI in this class. 
  * Note: Expanding the coverage for more complex  UIs and pages, we can extend this class to support say mobile/device testing, etc.

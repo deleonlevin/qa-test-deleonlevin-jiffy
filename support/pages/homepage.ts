@@ -1,12 +1,21 @@
-import { Page } from "@playwright/test";
-import { BasePage } from "./basePage";
+import { Page } from '@playwright/test';
+import IframeUtils from './iframe';
 
-export class HomePage {
-  constructor(private page: Page) { }
+export default class Homepage extends IframeUtils {
+    constructor(page: Page) {
+        super(page);
+    }
 
-  private readonly Elements = {
-    
-  }
+    /**
+     * Page Locators
+     *    Rule of thumb: As much as possible use locators for Elements instead of class/xpath strings
+     */
+    private readonly Elements = {
+      popularProductSectionTest: this.page.getByRole('heading', { name: 'Popular Products' })
+    }
+    async assertPopularProductsSection(): Promise<void> {
+        await this.assertSectionText(this.Elements.popularProductSectionTest, 'Popular Products');
+    }
 
-  async assertPageTitle(): Promise<void> { }
+
 }

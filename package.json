@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "scripts": {
     "healthcheck": "npx playwright test tests/healthcheck/healthcheck.spec.ts",
+    
     "test:regression:ci:headless": "npm run healthcheck && HEADLESS=true ENV=$ENV npx playwright test",
     "test:regression:ci:headed": "npm run healthcheck && HEADLESS=true ENV=$ENV npx playwright test",
+    
     "test:regression:local:headless": "npm run healthcheck && HEADLESS=true ENV=local npx playwright test",
     "test:regression:local:headed": "npm run healthcheck && HEADLESS=false ENV=local npx playwright test",
+    
     "format": "prettier --write .",
     "codegen": "npx playwright codegen"
   },

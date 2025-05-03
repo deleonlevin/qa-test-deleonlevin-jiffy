@@ -15,7 +15,7 @@ export const test = baseTest.extend<MyFixtures>({
 });
 
 test.beforeEach(async () => {
-  /** CODEOWNER NOTE:
+  /**CODEOWNER NOTES
    * This skips any other tests since the healthcheck test / flag checks if webpage is accessible,
    *  in order to not waste time / execution in the event the environment is down or deployment is ongoing
    */
