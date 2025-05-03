@@ -81,7 +81,7 @@ For a more detailed execution breakdown for each test, this would include a trac
 ## Others
 ### Assumptions
 1. **No "signed in" user journey, just default guest checkout journey** - Since the task focuses on a feature / requirement of adding multiple orders to cart, I decided not to explore user journeys between a registered customer and a guest customer due to time constraints. (Although in the real world, these are ideally included as part of the user flows for this feature)
-2. **No payment flow** - Tests end on the part where user is in the "Checkout" page. I limited my tests to end here and validate the products in the 'right-hand' side of the screen reflects all the products added to the cart for checkout since this is still related to the new feature of adding multiple items to cart.
+2. **The user can place an order from the cart: No payment flow** - Tests end on the part where user is in the "Checkout" page. I limited my tests to end here and validate the products in the 'right-hand' side of the screen reflects all the products added to the cart for checkout since this is still related to the new feature of adding multiple items to cart.
 3. **No visual comparison on products in the SHOPPING CART page** - a little more complicated but is nice to have
 
 ### Other Resources
