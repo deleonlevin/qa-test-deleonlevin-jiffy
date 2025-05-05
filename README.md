@@ -118,6 +118,9 @@ In order to create assertions between product discovery vs. shopping cart vs. ch
 In the report, you will see logs that relate to these assertion under the **Attachments** section at the bottom of the report like this one:
 <img width="810" alt="Screenshot 2025-05-05 at 10 01 48 PM" src="https://github.com/user-attachments/assets/7f7420bb-b10e-43a0-911e-4c7fc99cf639" />
 
+#### Areas for improvement
+There are products which has other variations like for Shirts having 'Size' / 'Color'  and others having 'Dimensions' as a product variation. I have created scripts to also save these data per product and flow and the assertions are ready for these deep comparisons. However due to time constraints I decided not to include tests dedicated to product variations anymore (except Quantity, but might not be necessarily a variation per se).
+
 You can see these comparisons in the report when you run it under the 
 ### Assumptions
 
