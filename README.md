@@ -121,7 +121,7 @@ In the report, you will see logs that relate to these assertion under the **Atta
 #### Areas for improvement
 There are products which has other variations like for Shirts having 'Size' / 'Color'  and others having 'Dimensions' as a product variation. I have created scripts to also save these data per product and flow and the assertions are ready for these deep comparisons. However due to time constraints I decided not to include tests dedicated to product variations anymore (except Quantity, but might not be necessarily a variation per se).
 
-You can see these comparisons in the report when you run it under the 
+
 ### Assumptions
 
 1. **Guest Checkout Only**  
@@ -135,6 +135,12 @@ You can see these comparisons in the report when you run it under the
 
 ### Other Resources
 
-Test case spreadsheet:  
-**[Test Cases] Presta Shop - Add to Cart**  
-[View on Google Sheets](https://docs.google.com/spreadsheets/d/112Wh2ABRsOg2osKbpASmpUnAzvllLBTXwUPIhIJ-UnY/edit?usp=sharing)
+**Sample Videos of execution**
+
+[**Videos**](https://drive.google.com/drive/folders/1153zyo-6otG6tvkHLRdv4f6idiId7-Y0?usp=sharing)
+- Acceptance Criteria #1: The user can add more than one product to the cart -> `AC1_addToCartCart.mov`
+- Acceptance Criteria #2: The user can place an order from the cart. ->`AC2_checkoutCart.mov`
+
+**Test Cases**
+
+[[Test Cases]: Presta Shop - Add to Cart](https://docs.google.com/spreadsheets/d/112Wh2ABRsOg2osKbpASmpUnAzvllLBTXwUPIhIJ-UnY/edit?usp=sharing)
