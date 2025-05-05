@@ -35,7 +35,7 @@ export default class IframeUtils {
         return this.frameLocator.locator(selector);
     }
 
-    async clickInIframe(selector: Locator): Promise<void> {
+    async clickButtonInIframe(selector: Locator): Promise<void> {
         await this.getIframeElement(selector).click();
     }
 
@@ -52,4 +52,35 @@ export default class IframeUtils {
         await expect(element).toBeVisible({ timeout: 30000 });
         await expect(element).toHaveText(expectedText, { timeout: 10000 });
     }
+
+    async clickProductTile(selector: Locator): Promise<void> {
+        const element = this.getIframeElement(selector);
+        await element.click();
+        await this.page.waitForLoadState('load', { timeout: 10000 });
+    }
+
+    async waitForSelector(selector: Locator): Promise<void> {
+        const element = this.getIframeElement(selector);
+        await element.waitFor({state: 'visible', timeout: 10000})
+    }
+
+    async extractUIText(selector: Locator): Promise<string>{
+        const element = this.getIframeElement(selector);
+        const uiText = await element.textContent() || '';
+        return uiText;
+    }
+
+    async extractFloatValue(selector: Locator): Promise<number> {
+        const element = this.getIframeElement(selector);
+        const uiNumber = await element.getAttribute('content');
+        return parseFloat(uiNumber || '0');
+      }
+
+      async extractAttribute(selector: Locator, attr: string): Promise<string> {
+        const element = this.getIframeElement(selector).getAttribute(attr);
+        const thisValue = await element || '';
+        return thisValue;
+      }
+      
+
 }

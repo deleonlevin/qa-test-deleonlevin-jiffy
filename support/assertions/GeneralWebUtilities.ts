@@ -5,8 +5,8 @@ import { expect, Page } from "playwright/test";
  *    for web UI in this class. 
  * Note: Expanding the coverage for more complex  UIs and pages, we can extend this class to support say mobile/device testing, etc.
  */
-export default class GeneralWebUiAssertions {
-  constructor(private page: Page) {}
+export default class GeneralWebUtilities {
+  constructor(private page: Page) { }
 
   private Elements = {};
 
@@ -32,10 +32,31 @@ export default class GeneralWebUiAssertions {
     }
   }
 
-  async assertPromptModal(text: string): Promise<void> {}
+  async assertPromptModal(text: string): Promise<void> { }
 
   async assertPageTitle(title: string): Promise<void> {
     const pageTitle = await this.page.title();
     expect(pageTitle).toContain(title);
   }
+
+  async cleanText(input: string | null): Promise<string> {
+    if (input === null) return '';
+    return input.replace(/\s+/g, ' ').trim();
+  }
+
+  async stringEquality(sourceOfTruth: string, actualString: string): Promise<void> {
+    expect(sourceOfTruth).toStrictEqual(actualString);
+  }
+
+  async numberEquality(sourceOfTruth: number, actualNumber: number): Promise<void> {
+    expect(sourceOfTruth).toStrictEqual(actualNumber);
+  }
+
+  async deepEquality(sourceOfTruth: Object, actualData: Object): Promise<void> {
+    console.log(`[Test] Expected: ${JSON.stringify(sourceOfTruth)}`);
+    console.log(`[Test] Actual: ${JSON.stringify(actualData)}`);
+    expect(sourceOfTruth).toStrictEqual(actualData);
+  }
+
+  
 }

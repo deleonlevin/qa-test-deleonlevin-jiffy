@@ -2,14 +2,14 @@ import { test } from "@playwright/test";
 import { BasePage } from "../../support/pages/basePage";
 import IframeUtils from "../../support/pages/iframe";
 import Homepage from "../../support/pages/homepage";
-import GeneralWebUiAssertions from "../../support/assertions/GeneralWebUiAssertions";
+import GeneralWebUtilities from "../../support/assertions/GeneralWebUtilities";
 import { setHealthcheckStatus } from "./status";
 
 test.describe.serial("[Healthcheck]", () => {
   test("User can visit Presta Shop the webpage", async ({ page }) => {
     try {
       const basePage = new BasePage(page);
-      const webUiAssertions = new GeneralWebUiAssertions(page);
+      const webUiAssertions = new GeneralWebUtilities(page);
       const Iframe = new IframeUtils(page)
       const LandingPage = new Homepage(page);
 
