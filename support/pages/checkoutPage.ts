@@ -11,10 +11,7 @@ export default class CheckoutPage extends IframeUtils {
         UiUtilities = new GeneralWebUtilities(page);
     }
 
-    /**
-     * Page Locators
-     *    Rule of thumb: As much as possible use locators for Elements instead of class/xpath strings
-     */
+// Private page locators
     private readonly Elements = {
         pageTitle: this.page.getByRole('heading', { name: /Personal Information/ }),
         checkoutPageTotalPrice: this.page.locator('#cart-subtotal-products .value')

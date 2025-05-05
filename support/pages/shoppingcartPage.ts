@@ -11,10 +11,7 @@ export default class Shoppingcartpage extends IframeUtils {
         UiUtilities = new GeneralWebUtilities(page);
     }
 
-    /**
-     * Page Locators
-     *    Rule of thumb: As much as possible use locators for Elements instead of class/xpath strings
-     */
+// Private page locators
     private readonly Elements = {
         pageTitle: this.page.getByRole('heading', { name: /Shopping Cart/ }),
         checkoutCart: this.page.locator('.cart-items > .cart-item'),

@@ -25,10 +25,7 @@ export default class Productpage extends IframeUtils {
         UiUtilities = new GeneralWebUtilities(page)
     }
 
-    /**
-     * Page Locators
-     *    Rule of thumb: As much as possible use locators for Elements instead of class/xpath strings
-     */
+// Private page locators
     private readonly Elements = {
         producttName: this.page.locator('h1.h1'),
         productCurrentPrice: this.page.locator('.current-price-value'),
@@ -92,7 +89,7 @@ export default class Productpage extends IframeUtils {
         const modalProductSizeVariation = productSourceOfTruth?.productVariation?.size;
         const modalProductColorVariation = productSourceOfTruth?.productVariation?.color;
         const modalProductDimensionVariation = productSourceOfTruth?.productVariation?.dimension;
-        
+
         let modalProductVariation = {
             ...(modalProductColorVariation && {color: modalProductColorVariation}),
             ...(modalProductSizeVariation && {size: modalProductSizeVariation}),

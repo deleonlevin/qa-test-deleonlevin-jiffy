@@ -6,10 +6,7 @@ export default class Homepage extends IframeUtils {
         super(page);
     }
 
-    /**
-     * Page Locators
-     *    Rule of thumb: As much as possible use locators for Elements instead of class/xpath strings
-     */
+// Private page locators
     private readonly Elements = {
       popularProductSectionTest: this.page.getByRole('heading', { name: 'Popular Products' }),
       popularProductSectionFirstProduct: this.page.locator('.product-miniature').first(),
