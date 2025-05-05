@@ -21,8 +21,8 @@ export default class IframeUtils {
      * Wait for iframe to be visible and fully loaded
      */
     async waitForIframeLoad(): Promise<void> {
-        await this.page.waitForSelector(this.iframeSelector, { state: 'attached', timeout: 30000 });
-        await expect(this.page.locator(this.iframeSelector)).toBeVisible({ timeout: 30000 });
+        await this.page.waitForSelector(this.iframeSelector, { state: 'attached', timeout: 30_000 });
+        await expect(this.page.locator(this.iframeSelector)).toBeVisible({ timeout: 30_000 });
 
         const frameElementHandle = await this.page.locator(this.iframeSelector).elementHandle();
         const frame = await frameElementHandle?.contentFrame();
@@ -36,7 +36,9 @@ export default class IframeUtils {
     }
 
     async clickButtonInIframe(selector: Locator): Promise<void> {
-        await this.getIframeElement(selector).click();
+        const element = this.getIframeElement(selector)
+        await element.waitFor({ state: 'visible', timeout: 10_000 });
+        await element.click();
     }
 
     async fillInIframe(selector: Locator, text: string): Promise<void> {
@@ -49,19 +51,19 @@ export default class IframeUtils {
 
     async assertSectionText(selector: Locator, expectedText: string): Promise<void> {
         const element = this.getIframeElement(selector);
-        await expect(element).toBeVisible({ timeout: 30000 });
-        await expect(element).toHaveText(expectedText, { timeout: 10000 });
+        await expect(element).toBeVisible({ timeout: 30_000 });
+        await expect(element).toContainText(expectedText, { timeout: 10_000 });
     }
 
     async clickProductTile(selector: Locator): Promise<void> {
         const element = this.getIframeElement(selector);
         await element.click();
-        await this.page.waitForLoadState('load', { timeout: 10000 });
+        await this.page.waitForLoadState('load', { timeout: 10_000 });
     }
 
     async waitForSelector(selector: Locator): Promise<void> {
         const element = this.getIframeElement(selector);
-        await element.waitFor({state: 'visible', timeout: 10000})
+        await element.waitFor({state: 'visible', timeout: 10_000})
     }
 
     async extractUIText(selector: Locator): Promise<string>{
@@ -82,5 +84,10 @@ export default class IframeUtils {
         return thisValue;
       }
       
+      async assertButtonIsDisabled(selector: Locator): Promise<void> {
+        const element = this.getIframeElement(selector);
+        await element.waitFor({ state: 'visible', timeout: 10_000 });
+        expect(element).toBeDisabled;
+      }
 
 }

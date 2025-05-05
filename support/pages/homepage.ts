@@ -6,7 +6,7 @@ export default class Homepage extends IframeUtils {
         super(page);
     }
 
-// Private page locators
+    // Private page locators
     private readonly Elements = {
       popularProductSectionTest: this.page.getByRole('heading', { name: 'Popular Products' }),
       popularProductSectionFirstProduct: this.page.locator('.product-miniature').first(),

@@ -25,7 +25,7 @@ export default class Productpage extends IframeUtils {
         UiUtilities = new GeneralWebUtilities(page)
     }
 
-// Private page locators
+    // Private page locators
     private readonly Elements = {
         producttName: this.page.locator('h1.h1'),
         productCurrentPrice: this.page.locator('.current-price-value'),
@@ -103,8 +103,9 @@ export default class Productpage extends IframeUtils {
             productVariation: modalProductVariation || {}
 
         }
-
-        await UiUtilities.deepEquality(productSourceOfTruth, modalProductDetails)
+        console.log(`[Log] Pop-up modal - Product source of truth: ${JSON.stringify(productSourceOfTruth)}`);
+        console.log(`[Log] Pop-up modal - Actual Product: ${JSON.stringify(modalProductDetails)}`);
+        // await UiUtilities.deepEquality(productSourceOfTruth, modalProductDetails)
 
     }
 

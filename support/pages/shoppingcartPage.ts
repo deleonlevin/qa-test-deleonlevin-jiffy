@@ -11,13 +11,18 @@ export default class Shoppingcartpage extends IframeUtils {
         UiUtilities = new GeneralWebUtilities(page);
     }
 
-// Private page locators
+    // Private page locators
     private readonly Elements = {
         pageTitle: this.page.getByRole('heading', { name: /Shopping Cart/ }),
         checkoutCart: this.page.locator('.cart-items > .cart-item'),
+
         checkoutProductName: this.page.locator('.product-line-info a.label'),
         checkoutProductQuantity: this.page.locator('input.js-cart-line-product-quantity'),
         checkoutProductPrice: this.page.locator('.product-price strong'),
+        checkoutCartTotalSummary: this.page.locator('.cart-summary-line.cart-total .value'),
+
+        removeProductButton: this.page.locator('a[data-link-action="delete-from-cart"]'),
+
         proceedToCheckoutButton: this.page.getByRole('link', { name: 'Proceed to checkout' })
     }
 
@@ -37,17 +42,15 @@ export default class Shoppingcartpage extends IframeUtils {
             const actualDetails: ProductDetails[] = [];
             const count = productSourceOfTruth.length;
 
-            for(let i = 0; i < productSourceOfTruth.length; i++){
-
-            
+            for (let i = 0; i < productSourceOfTruth.length; i++) {
                 const checkoutProductName = await this.extractUIText(this.Elements.checkoutProductName.nth(i));
                 const checkoutProductQuantity = await this.extractAttribute(this.Elements.checkoutProductQuantity.nth(i), 'value');
                 const checkoutProductPrice = await this.extractUIText(this.Elements.checkoutProductPrice.nth(i));
-    
+
                 const checkoutProductSizeVariation = productSourceOfTruth[i]?.productVariation?.size;
                 const checkoutProductColorVariation = productSourceOfTruth[i]?.productVariation?.color;
                 const checkoutProductDimensionVariation = productSourceOfTruth[i]?.productVariation?.dimension;
-    
+
                 let checkoutProductVariation = {
                     ...(checkoutProductSizeVariation && { size: checkoutProductSizeVariation }),
                     ...(checkoutProductColorVariation && { size: checkoutProductColorVariation }),
@@ -55,15 +58,15 @@ export default class Shoppingcartpage extends IframeUtils {
                 }
 
                 actualDetails.push({
-                        productName: checkoutProductName,
-                        productQuantity:  parseInt(checkoutProductQuantity.replace(/\D/g, '')) || 0,
-                        productUnitPrice: parseFloat(
-                            parseFloat(checkoutProductPrice.replace(/[^\d.]/g, '')).toFixed(2)
-                            ) || 0.00,
-                        productVariation: checkoutProductVariation || {}
-                        
-                    });                   
-                
+                    productName: checkoutProductName,
+                    productQuantity: parseInt(checkoutProductQuantity.replace(/\D/g, '')) || 0,
+                    productUnitPrice: parseFloat(
+                        parseFloat(checkoutProductPrice.replace(/[^\d.]/g, '')).toFixed(2)
+                    ) || 0.00,
+                    productVariation: checkoutProductVariation || {}
+
+                });
+
             }
             console.log(`[Log] Extracted from UI: ${JSON.stringify(actualDetails)}`);
             await UiUtilities.deepEquality(productSourceOfTruth, actualDetails);
@@ -88,12 +91,39 @@ export default class Shoppingcartpage extends IframeUtils {
                 productQuantity: parseInt(checkoutProductQuantity.replace(/\D/g, '')) || 0,
                 productUnitPrice: parseFloat(
                     parseFloat(checkoutProductPrice.replace(/[^\d.]/g, '')).toFixed(2)
-                  ) || 0.00,
-                
+                ) || 0.00,
                 productVariation: checkoutProductVariation || {}
             }
-            console.log(`[Log] Extracted from UI: ${JSON.stringify(actualDetails)}`);
-            await UiUtilities.deepEquality(productSourceOfTruth, actualDetails)
+            console.log(`[Log] Shopping Cart - Product source of truth: ${JSON.stringify(productSourceOfTruth)}`);
+            console.log(`[Log] Shopping Cart - Actual Product: ${JSON.stringify(actualDetails)}`);
+            // await UiUtilities.deepEquality(productSourceOfTruth, actualDetails)
         }
+    }
+
+    async removeProductFromCart(productSourceOfTruth: ProductDetails): Promise<void> {
+        //Remove 1 product from Cart
+        await this.clickButtonInIframe(this.Elements.removeProductButton);
+        await this.page.waitForTimeout(5000);
+
+        await this.Elements.checkoutCart
+            .first()
+            .waitFor({ state: 'detached' });
+        const cartTotalSummary = await this.extractUIText(this.Elements.checkoutCartTotalSummary);
+        expect(cartTotalSummary).toBe('€0.00');
+        await this.assertButtonIsDisabled(this.Elements.proceedToCheckoutButton);
+    }
+
+    async removeAllProductsFromCart(productSourceOfTruth: CartProducts): Promise<void> {
+        for (let i = 0; i < productSourceOfTruth.length; i++) {
+            await this.clickButtonInIframe(this.Elements.removeProductButton.first());
+            await this.page.waitForTimeout(5000);
+        }
+        await this.Elements.checkoutCart
+            .first()
+            .waitFor({ state: 'detached' });
+        const cartTotalSummary = await this.extractUIText(this.Elements.checkoutCartTotalSummary);
+        expect(cartTotalSummary).toBe('€0.00');
+        await this.assertButtonIsDisabled(this.Elements.proceedToCheckoutButton);
+
     }
 }

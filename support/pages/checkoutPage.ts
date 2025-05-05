@@ -11,12 +11,10 @@ export default class CheckoutPage extends IframeUtils {
         UiUtilities = new GeneralWebUtilities(page);
     }
 
-// Private page locators
+    // Private page locators
     private readonly Elements = {
-        pageTitle: this.page.getByRole('heading', { name: /Personal Information/ }),
+        pageTitle: this.page.locator('h1.step-title').first(),
         checkoutPageTotalPrice: this.page.locator('#cart-subtotal-products .value')
-
-
     }
 
     async waitForRedirect(): Promise<void> {

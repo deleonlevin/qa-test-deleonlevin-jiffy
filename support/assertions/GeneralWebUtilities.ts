@@ -1,4 +1,5 @@
 import { expect, Page } from "playwright/test";
+import { ProductDetails } from "../pages/productPage";
 
 /**CODEOWNER NOTES
  * In the principle of maintaining 'DRY' principle in coding, I would like to maintain all reusable assertions
@@ -58,5 +59,14 @@ export default class GeneralWebUtilities {
     expect(sourceOfTruth).toStrictEqual(actualData);
   }
 
-  
+  // Generic utility to update a property of a typed object
+  updateObject<T extends object, K extends keyof T>(
+    obj: T,
+    key: K,
+    value: T[K]
+  ): T {
+    return { ...obj, [key]: value };
+  }
+
+
 }
