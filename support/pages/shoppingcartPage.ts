@@ -23,7 +23,8 @@ export default class Shoppingcartpage extends IframeUtils {
 
         removeProductButton: this.page.locator('a[data-link-action="delete-from-cart"]'),
 
-        proceedToCheckoutButton: this.page.getByRole('link', { name: 'Proceed to checkout' })
+        proceedToCheckoutButton: this.page.getByRole('link', { name: 'Proceed to checkout' }),
+        proceedToCheckoutButtonDisabled: this.page.getByRole('button', { name: 'Proceed to checkout' })
     }
 
     async waitForRedirect(): Promise<void> {
@@ -110,7 +111,7 @@ export default class Shoppingcartpage extends IframeUtils {
             .waitFor({ state: 'detached' });
         const cartTotalSummary = await this.extractUIText(this.Elements.checkoutCartTotalSummary);
         expect(cartTotalSummary).toBe('€0.00');
-        await this.assertButtonIsDisabled(this.Elements.proceedToCheckoutButton);
+        await this.assertButtonIsDisabled(this.Elements.proceedToCheckoutButtonDisabled);
     }
 
     async removeAllProductsFromCart(productSourceOfTruth: CartProducts): Promise<void> {
@@ -123,7 +124,7 @@ export default class Shoppingcartpage extends IframeUtils {
             .waitFor({ state: 'detached' });
         const cartTotalSummary = await this.extractUIText(this.Elements.checkoutCartTotalSummary);
         expect(cartTotalSummary).toBe('€0.00');
-        await this.assertButtonIsDisabled(this.Elements.proceedToCheckoutButton);
+        await this.assertButtonIsDisabled(this.Elements.proceedToCheckoutButtonDisabled);
 
     }
 }
