@@ -1,17 +1,21 @@
 {
-    "name": "qa-task-deleonlevin-jiffy",
-    "version": "1.0.0",
-    "scripts": {
-        "test:dev": "ENV=DEV npx playwright test",
-        "test:qa": "ENV=STAGING npx playwright test",
-        "test:prod": "ENV=PROD npx playwright test",
-        "test:ci": "ENV=$ENV npx playwright test",
-        "test:headed": "npx playwright test --headed",
-        "codegen": "npx playwright codegen"
-    },
-    "devDependencies": {
-        "@playwright/test": "^1.43.0",
-        "dotenv": "^16.5.0",
-        "typescript": "^5.0.0"
-    }
+  "name": "qa-task-deleonlevin-jiffy",
+  "version": "1.0.0",
+  "scripts": {
+    "healthcheck": "npx playwright test tests/healthcheck/healthcheck.spec.ts",
+    
+    "test:regression:ci": "npm run healthcheck && HEADLESS=$HEADLESS ENV=$ENV npx playwright test",
+    
+    "test:regression:local:headless": "npm run healthcheck && HEADLESS=true ENV=local npx playwright test",
+    "test:regression:local:headed": "npm run healthcheck && HEADLESS=false ENV=local npx playwright test",
+    
+    "format": "prettier --write .",
+    "codegen": "npx playwright codegen"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.43.0",
+    "dotenv": "^16.5.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.0.0"
+  }
 }

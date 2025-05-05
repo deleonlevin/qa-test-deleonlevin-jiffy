@@ -1,23 +1,25 @@
-import { defineConfig } from '@playwright/test';
-import * as dotenv from 'dotenv';
-dotenv.config();
+import { defineConfig } from "@playwright/test";
+import * as dotenv from "dotenv";
+import * as path from "path";
 
-const env = process.env.ENV || 'PROD';
+const env = process.env.ENV || "prod";
+dotenv.config({ path: path.resolve(__dirname, `.env/.env.${env}`) });
+
+console.log("Loaded BASE_URL:", process.env.BASE_URL); // Debugging aid
 
 export default defineConfig({
-  testDir: './tests',
-  timeout: 30000,
-  expect: {
-    timeout: 5000,
-  },
-  reporter: [['html'], ['list']],
+  timeout: 60_000,
   use: {
-    browserName: 'chromium',
-    headless: true,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    trace: 'on-first-retry',
-    baseURL: process.env.BASE_URL || 'https://example.com',
-
+    baseURL: process.env.BASE_URL || "",
+    headless: process.env.HEADLESS !== "false",
+    screenshot: "on",
+    trace: "retain-on-failure",
+    actionTimeout: 60_000,
+    navigationTimeout: 60_000, 
   },
+  testDir: "./tests",
+  reporter: [["html"], ["list"]],
+  expect: {
+    timeout: 60_000,
+  }
 });
