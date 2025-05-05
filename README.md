@@ -95,14 +95,37 @@ Tests automatically generate reports using Playwright's built-in reporter. Detai
 (Upload the `.zip` trace file to inspect execution details.)
 
 ## Others
+### Testing and Assertions
+Since this is an **Add to Cart** functionality, I think it's important that the data integrity of 'products' from discovery, update, add to cart up until checkout is necessary and imperative. In order to assert product details like name, quantity, and price - what I did is to create a type called `ProductDetails` as seen under `qsupport/pages/productPage.ts`
+```
+export type ProductDetails = {
+    productName: string,
+    productQuantity: number,
+    productUnitPrice: number,
+    productVariation?: {
+      size?: string | null,
+      color?: string | null,
+      dimension?: string | null
+    }
+}
 
+export type CartProducts = ProductDetails[];
+```
+- using this type as **ProductDetails** would denote single product flow / checkout
+- using this type as **CartProducts** would denote multipel products flow / checkout.
+
+In order to create assertions between product discovery vs. shopping cart vs. checkout page, I created this source of truth and updated it accordingly depending on varying quantity. In general, the final source of truth of a 'product' object should be reflected in the **SHIPPING CART** page, and that the total for the cart should also be correctly reflected in the **CHECKOUT** page.
+In the report, you will see logs that relate to these assertion under the **Attachments** section at the bottom of the report like this one:
+<img width="810" alt="Screenshot 2025-05-05 at 10 01 48 PM" src="https://github.com/user-attachments/assets/7f7420bb-b10e-43a0-911e-4c7fc99cf639" />
+
+You can see these comparisons in the report when you run it under the 
 ### Assumptions
 
 1. **Guest Checkout Only**  
    Focus is on multi-item cart flow. Registered vs. guest flows are excluded for simplicity.
 
 2. **No Payment Flow Automation**  
-   Tests end at the checkout page. Product validation is based on what's shown in the right-hand summary panel.
+   Tests end at the checkout page. Product validation is based on what's shown in the right-hand summary panel. I tried to proceed filling up Personal Information, Shipping Address, etc. but in the end since it's a demo page it does not allow actual payment simulation so I did not bother doing these steps anymore since we can't validate payment anyway.
 
 3. **No Visual Comparison on Cart Page**  
    Not implemented, but could be added as a nice-to-have feature.
